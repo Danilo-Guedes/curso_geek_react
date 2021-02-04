@@ -1,12 +1,14 @@
 import React from 'react';
 import './Comentario.css';
 
-const Comentario = () => (
+const Comentario = (props) => (
 
     //JSX
     <div className='Comentario'>
-        <div>Mestre disse:</div>
-        <div>Muito legal este curso de React</div>
+        <h2>{props.nome} disse:</h2>
+        <p>{props.mail}</p>
+        <p>{props.children}</p>
+        <p>{props.data.toDateString()}</p>
     </div>
 
 );
