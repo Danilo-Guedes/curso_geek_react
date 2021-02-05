@@ -21,6 +21,26 @@ class App extends Component {
       }
     ]
   }
+
+  adicionarComentario = () => {
+    const novoComentario = {
+      nome: "Pedro",
+      email: "pedro@mail.com",
+      data: new Date(),
+      mensagem: "Salve Salve Pessoal!!!"
+    }
+
+    //FORMA TRADICIONAL DE SE FZ NO JS = ERRADA
+    // let lista = this.state.comentarios;
+    // lista.push(novoComentario);
+    // this.setState({comentarios: lista});
+
+    //FORMA MAIS MODERNA
+    this.setState({
+      comentarios: [...this.state.comentarios, novoComentario]
+    });
+
+  }
   
   render(){ return (
     <div className="App">
@@ -38,6 +58,7 @@ class App extends Component {
             {comentario.mensagem}
         </Comentario>       
       ))}     
+      <button onClick={this.adicionarComentario}>Adicionar um Comentário</button>
     </div>
   )};
 }

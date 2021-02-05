@@ -1,7 +1,7 @@
 import React from 'react';
 import './Comentario.css';
 
-const Comentario = (props) => (
+const Comentario = (props) => ( //parenteses está encapsulando o retorno html
 
     //JSX
     <div className='Comentario'>
