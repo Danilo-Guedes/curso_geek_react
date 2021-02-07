@@ -19,27 +19,42 @@ class App extends Component {
         data: new Date(2021, 2, 4),
         mensagem:"Olá mestre tudo bem? de onde vc é?"
       }
-    ]
+    ],
+    novoComentario: {
+      nome: '',
+      email: '',
+      mensagem: ''
+    }
   }
 
-  adicionarComentario = () => {
-    const novoComentario = {
-      nome: "Pedro",
-      email: "pedro@mail.com",
-      data: new Date(),
-      mensagem: "Salve Salve Pessoal!!!"
-    }
+  digitacaoCampos = evento => {
 
-    //FORMA TRADICIONAL DE SE FZ NO JS = ERRADA
+    const {name, value} = evento.target; 
+
+    this.setState({
+      novoComentario: {...this.state.novoComentario, [name]: value}
+    });
+  }
+
+  adicionarComentario = evento => {
+
+    //FORMA TRADICIONAL DE SE FZ NO JS = ANTIGA - EVITAR
     // let lista = this.state.comentarios;
     // lista.push(novoComentario);
     // this.setState({comentarios: lista});
+    
+    //FORMA MAIS MODERNA USANDO REST/SPREAD
+    // this.setState({
+    //   comentarios: [...this.state.comentarios, novoComentario]
+    // });
 
-    //FORMA MAIS MODERNA
-    this.setState({
-      comentarios: [...this.state.comentarios, novoComentario]
-    });
+    evento.preventDefault(); //Anula o eveto de submit
 
+    const novoComentario = {...this.state.novoComentario, data: new Date()} //adicionando a data no objeto
+
+    this.setState({comentarios: [...this.state.comentarios, novoComentario], //adicionando o novo coment na lista de comentarios
+                  novoComentario: { nome: '', email: '', mensagem: ''}//zerando os valores do form spós o submit         
+    }) 
   }
   
   render(){ return (
@@ -58,7 +73,50 @@ class App extends Component {
             {comentario.mensagem}
         </Comentario>       
       ))}     
-      <button onClick={this.adicionarComentario}>Adicionar um Comentário</button>
+      
+      <div>
+        <h2>Adicionar um Comentário</h2>
+        <form type="post" onSubmit={this.adicionarComentario}>
+          <div>
+            <input 
+              type='text'
+              name='nome'
+              value={this.state.novoComentario.nome}
+              placeholder='Digite seu nome'
+              onChange={this.digitacaoCampos}        
+              autoComplete='off'  
+            />
+          </div>
+          <div>
+            <input 
+              type='text'
+              name='email'
+              value={this.state.novoComentario.email}
+              placeholder='Digite seu nome'
+              onChange={this.digitacaoCampos}
+              autoComplete='off'  
+            />
+          </div>
+          <div>
+            <textarea 
+                name="mensagem" 
+                placeholder="Escreva sua mensagem" 
+                value={this.state.novoComentario.mensagem}
+                rows="4" 
+                onChange={this.digitacaoCampos}
+                autoComplete='off' >
+                        
+            </textarea>
+          </div>
+          <div>
+            <button type="submit">Adicionar um comentário</button>
+          </div>
+          
+        </form>
+        
+      </div>
+
+
     </div>
   )};
 }
