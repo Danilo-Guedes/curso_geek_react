@@ -56,6 +56,12 @@ class App extends Component {
                   novoComentario: { nome: '', email: '', mensagem: ''}//zerando os valores do form spós o submit         
     }) 
   }
+
+  removerComentario = comentario => {
+    let lista = this.state.comentarios;
+    lista = lista.filter(c => c !== comentario)
+    this.setState({comentarios: lista})
+  }
   
   render(){ return (
     <div className="App">
@@ -69,7 +75,8 @@ class App extends Component {
             key={index}
             nome={comentario.nome} 
             email={comentario.email} 
-            data={comentario.data}>
+            data={comentario.data}
+            onRemove={this.removerComentario.bind(this, comentario)}>
             {comentario.mensagem}
         </Comentario>       
       ))}     

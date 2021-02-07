@@ -9,8 +9,10 @@ const Comentario = (props) => ( //parenteses está encapsulando o retorno html
         <p>{props.mail}</p>
         <p>{props.children}</p>
         <p>{props.data.toDateString()}</p>
+        <button onClick={props.onRemove} >&times;</button>
     </div>
 
 );
 
 export default Comentario;
+
