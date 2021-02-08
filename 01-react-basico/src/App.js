@@ -66,24 +66,26 @@ class App extends Component {
   render(){ return (
     <div className="App">
 
-      <h1>Meu projeto</h1>
+      <h1>Chat do Dev Gué</h1>
 
       {this.state.comentarios.map((comentario, index) => (  //parenteses pq retorna direto
         // console.log(comentario);
 
         <Comentario 
             key={index}
+            avatar={comentario.avatar}
             nome={comentario.nome} 
             email={comentario.email} 
             data={comentario.data}
-            onRemove={this.removerComentario.bind(this, comentario)}>
+            onRemove={this.removerComentario.bind(this, comentario)}//bind serve para relacionar o this da função a um objeto ou variável
+            > 
             {comentario.mensagem}
         </Comentario>       
       ))}     
       
       <div>
+        <form type="post" onSubmit={this.adicionarComentario} className="formulario">
         <h2>Adicionar um Comentário</h2>
-        <form type="post" onSubmit={this.adicionarComentario}>
           <div>
             <input 
               type='text'
@@ -92,16 +94,18 @@ class App extends Component {
               placeholder='Digite seu nome'
               onChange={this.digitacaoCampos}        
               autoComplete='off'  
+              required
             />
           </div>
           <div>
             <input 
-              type='text'
+              type='email'
               name='email'
               value={this.state.novoComentario.email}
               placeholder='Digite seu nome'
               onChange={this.digitacaoCampos}
               autoComplete='off'  
+              required
             />
           </div>
           <div>
@@ -111,7 +115,9 @@ class App extends Component {
                 value={this.state.novoComentario.mensagem}
                 rows="4" 
                 onChange={this.digitacaoCampos}
-                autoComplete='off' >
+                autoComplete='off' 
+                required
+              >
                         
             </textarea>
           </div>
