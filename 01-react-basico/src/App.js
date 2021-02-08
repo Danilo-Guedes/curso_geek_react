@@ -10,15 +10,15 @@ class App extends Component {
       {
         nome: "Mestre",
         email: "mestre@mail.com",
-        data: new Date(2021, 2, 4),
+        data: new Date(2021, 1, 4, 10, 30, 30, 0),
         mensagem:"Olá alguém quer TC?"
       },
       {
         nome: "Maria",
         email: "maria@mail.com",
-        data: new Date(2021, 2, 4),
+        data: new Date(2021, 1, 5, 23, 50, 0),
         mensagem:"Olá mestre tudo bem? de onde vc é?"
-      }
+      },
     ],
     novoComentario: {
       nome: '',
