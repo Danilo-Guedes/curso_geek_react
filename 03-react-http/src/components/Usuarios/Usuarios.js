@@ -8,10 +8,7 @@ class Usuarios extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      usuarios: [
-        { id: 1, nome: 'João', sobrenome: 'Silva', email: 'joao@mail.com' },
-        { id: 2, nome: 'Maria', sobrenome: 'Santos', email: 'maria@mail.com' }
-      ]
+      usuarios: []
     }
 
     this.adicionarUsuario = this.adicionarUsuario.bind(this)
@@ -28,6 +25,27 @@ class Usuarios extends Component {
       usuarios = usuarios.filter(x => x.id !== usuario.id)
       this.setState({ usuarios: usuarios })
     }
+  }
+
+  componentDidMount(){
+    //FAZENDO UMA REQUISICAO "GET" NA API REQRES.IN
+    fetch('https://reqres.in/api/users') //RETORNA UMA PROMISSE
+      .then(resposta => resposta.json())
+        .then(dados => {
+
+          console.log(dados.data)
+
+          const listaUsuarios = dados.data.map(usuario => {
+            return {
+              id: usuario.id,
+              nome: usuario.first_name,
+              sobrenome: usuario.last_name,
+              email: usuario.email
+            }
+          })
+          // console.log(listaDaApi);
+          this.setState({usuarios: listaUsuarios})
+        })
   }
 
   render() {
