@@ -1,40 +1,13 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import AdicionarUsuario from '../AdicionarUsuario/AdicionarUsuario'
 import Usuario from '../Usuario/Usuario'
 
-class Usuarios extends Component {
+function Usuarios() {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      usuarios: []
-    }
-
-    this.adicionarUsuario = this.adicionarUsuario.bind(this)
-  }
-
-  adicionarUsuario(usuario) {
-    const usuarios = [...this.state.usuarios, usuario]
-    this.setState({ usuarios: usuarios })
-  }
-
-  removerUsuario(usuario) {
-    if (window.confirm(`Tem certeza que deseja remover "${usuario.nome} ${usuario.sobrenome}"?`)) {
-      fetch(`https://reqres.in/api/users/${usuario.id}`, {
-        method: 'DELETE'
-      })
-        .then(resposta => {
-          if (resposta.ok){
-            let usuarios = this.state.usuarios
-            usuarios = usuarios.filter(x => x.id !== usuario.id)
-            this.setState({ usuarios: usuarios })
-          }
-        })
-    }
-  }
-
-  componentDidMount(){
+  const [usuarios, setUsuarios] = useState([]);
+  
+  useEffect(() => {
     //FAZENDO UMA REQUISICAO "GET" NA API REQRES.IN
     fetch('https://reqres.in/api/users') //RETORNA UMA PROMISSE
       .then(resposta => resposta.json())
@@ -51,24 +24,46 @@ class Usuarios extends Component {
             }
           })
           // console.log(listaDaApi);
-          this.setState({usuarios: listaUsuarios})
+          setUsuarios(listaUsuarios)
+
+          console.log('useEfect...');
         })
+  }, [])   //segundo parâmetro do useEffect é uma lista de dependencias, que no caso 
+           //foi passado um array vazio para não gerar dependencia
+
+  const adicionarUsuario = usuario => {
+    setUsuarios((usuariosAtual) => [...usuariosAtual, usuario] )
   }
 
-  render() {
+  const removerUsuario = usuario => {
+    if (window.confirm(`Tem certeza que deseja remover "${usuario.nome} ${usuario.sobrenome}"?`)) {
+      fetch(`https://reqres.in/api/users/${usuario.id}`, {
+        method: 'DELETE'
+      })
+        .then(resposta => {
+          if (resposta.ok){
+
+            setUsuarios(usuarios.filter(x => x.id !== usuario.id))
+            
+          }
+        })
+    }
+  }
+
+  console.log('render...');
+
     return (
       <>
-        <AdicionarUsuario adicionarUsuario={this.adicionarUsuario} />
+        <AdicionarUsuario adicionarUsuario={adicionarUsuario} />
 
-        {this.state.usuarios.map(usuario => (
+        {usuarios.map(usuario => (
           <Usuario key={usuario.id}
             usuario={usuario}
-            removerUsuario={this.removerUsuario.bind(this, usuario)}
+            removerUsuario={() => removerUsuario(usuario)}
           />
         ))}
       </>
     )
-  }
 }
 
 export default Usuarios
