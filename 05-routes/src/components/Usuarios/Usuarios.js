@@ -31,10 +31,7 @@ function Usuarios() {
   }, [])   //segundo parâmetro do useEffect é uma lista de dependencias, que no caso 
            //foi passado um array vazio para não gerar dependencia
 
-  const adicionarUsuario = usuario => {
-    setUsuarios((usuariosAtual) => [...usuariosAtual, usuario] )
-  }
-
+  
   const removerUsuario = usuario => {
     if (window.confirm(`Tem certeza que deseja remover "${usuario.nome} ${usuario.sobrenome}"?`)) {
       fetch(`https://reqres.in/api/users/${usuario.id}`, {
@@ -54,8 +51,6 @@ function Usuarios() {
 
     return (
       <>
-        <AdicionarUsuario adicionarUsuario={adicionarUsuario} />
-
         {usuarios.map(usuario => (
           <Usuario key={usuario.id}
             usuario={usuario}

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import './AdicionarUsuario.css'
 
-function AdicionarUsuario(props) {
+function AdicionarUsuario() {
   //useState deve ser utilizado como se fosse um constructor(), ou seja
   //deve ficar no escopo da função/componente e não pode ser declarado
   //de outra forma, ou em outra função, ou dentro de algum condicional if
@@ -32,7 +32,6 @@ function AdicionarUsuario(props) {
           setNome('');
           setSobrenome('');
           setEmail('');
-          props.adicionarUsuario(dados)
 
         })
   

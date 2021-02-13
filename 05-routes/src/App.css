@@ -62,7 +62,7 @@
   background-color: #ffbcd8;
 }
 
-.App nav ul li a:active{
+.App nav ul li a.active{
   background-color: #ff6ca8;
   color: #fff;
 }
