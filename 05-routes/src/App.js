@@ -5,8 +5,9 @@ import { BrowserRouter as Router, NavLink, Switch, Route} from 'react-router-dom
 
 import Usuarios from './components/Usuarios/Usuarios'
 import AdicionarUsuario from './components/AdicionarUsuario/AdicionarUsuario';
-import Home from './components/Home/Home'
-import PaginaNaoEncontrada from './components/404/PaginaNaoEcontrada'
+import Home from './components/Home/Home';
+import DetalhesUsuarios from './components/DetalhesUsuarios/DetalhesUsuarios';
+import PaginaNaoEncontrada from './components/404/PaginaNaoEcontrada';
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
           <Switch>
             <Route path='/' exact>
             <Home />
+            </Route>
+            <Route path='/usuarios/:id'>
+            <DetalhesUsuarios />
             </Route>
             <Route path='/usuarios' >
             <Usuarios />

@@ -24,16 +24,15 @@ function AdicionarUsuario() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(usuario)
     })
-      .then(resposta => resposta.json())
-        .then(dados => {
-
-          console.log(dados);
-
+      .then(resposta => {
+        if(resposta.ok){
+          alert(`Usuário ${usuario.nome} ${usuario.sobrenome} adicionado(a) com sucesso!`)
           setNome('');
           setSobrenome('');
           setEmail('');
 
-        })
+        }
+      })
   
   }
 
