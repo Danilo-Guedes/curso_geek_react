@@ -7,6 +7,8 @@ function DetalhesUsuarios(){
 
     const [usuario, setUsuario] = useState({});
 
+    const [aguardandoResponseApi, setAguardando] = useState(true);
+
     useEffect(() => {
         fetch(`https://reqres.in/api/users/${id}`)
         .then(resposta => resposta.json())        
@@ -21,21 +23,34 @@ function DetalhesUsuarios(){
                         foto: dados.data.avatar
                     })            
                 }
+                setAguardando(false);
         })
     }, [id])
 
-    if(usuario.nome !== undefined){
-        return <div>
-               <h1>{`${usuario.nome} ${usuario.sobrenome}`}</h1>
-               <img src={usuario.foto} alt={usuario.nome}/>
-               <p>{usuario.email}</p>    
-               <Link to='/usuarios'>Voltar</Link>
-               </div>
+    console.log(aguardandoResponseApi);
+
+    if(aguardandoResponseApi){
+
+            return <div><h1>Recebendo os dados..... </h1></div>
+
     }else{
-        return <div>
-               <h1>Usuário não encontrado</h1>
-               <Link to='/usuarios'>Voltar</Link>
-               </div>
-    }        
+
+        if(usuario.nome !== undefined){
+            return <div>
+                   <h1>{`${usuario.nome} ${usuario.sobrenome}`}</h1>
+                   <img src={usuario.foto} alt={usuario.nome}/>
+                   <p>{usuario.email}</p>    
+                   <Link to='/usuarios'>Voltar</Link>
+                   </div>
+        }else{
+            return <div>
+                   <h1>Usuário não encontrado</h1>
+                   <Link to='/usuarios'>Voltar</Link>
+                   </div>
+        }        
+
+    }
+
+
 }
 export default DetalhesUsuarios;
