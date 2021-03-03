@@ -16,7 +16,7 @@ const reducers = (state = INITAL_STATE, action) => { //Reducers sempre devem ret
         case actionsTypes.REMOVER_FRUTAS:
             return { frutas: state.frutas.filter(x => x.id !== action.payload.id)}
         default:
-            return {}
+            return state;
     }
 }
 
