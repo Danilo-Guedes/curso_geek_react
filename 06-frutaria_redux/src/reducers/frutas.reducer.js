@@ -1,10 +1,7 @@
 import { actionsTypes } from "../constants/frutas";
 
 const INITAL_STATE = {
-  frutas: [
-    { id: 1, nome: "Uva", quantidade: 30 },
-    { id: 2, nome: "Goiaba", quantidade: 5 },
-  ],
+  frutas: [],
 };
 
 const reducers = (state = INITAL_STATE, action) => {
