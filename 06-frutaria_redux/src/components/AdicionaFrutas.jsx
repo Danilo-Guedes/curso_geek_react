@@ -17,12 +17,19 @@ const AdicionaFrutas = () => {
       quantidade,
     };
     dispatch(actions.adicionar(fruta));
+
+    //limpando os dois inputs
+    document.querySelector(".frutaInput").value = "";
+    document.querySelector(".qtdeInput").value = "";
+    // dando select no primeiro input
+    document.querySelector(".frutaInput").select();
   };
 
   return (
     <form onSubmit={adicionarFrutas}>
       <input
         type="text"
+        className="frutaInput"
         required
         onChange={(event) => setNome(event.target.value)}
         placeholder="Adicione uma Fruta"
@@ -30,6 +37,7 @@ const AdicionaFrutas = () => {
 
       <input
         type="number"
+        className="qtdeInput"
         required
         onChange={(event) => setQuantidade(event.target.value)}
         placeholder="Adicione uma Quantidade"
