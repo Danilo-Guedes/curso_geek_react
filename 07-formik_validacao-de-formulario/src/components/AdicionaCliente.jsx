@@ -44,6 +44,7 @@ const AdicionaCliente = () => {
   return (
     <>
       <h1>Cadastro de Clientes</h1>
+      <p>Usando React, Formik e o Yup</p>
 
       <Formik
         initialValues={{ nome: "", email: "", nascimento: "" }}
