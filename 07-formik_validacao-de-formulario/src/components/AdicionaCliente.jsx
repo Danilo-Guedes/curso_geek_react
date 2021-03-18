@@ -1,5 +1,6 @@
 import React from "react";
 import { Formik, Field, useField } from "formik";
+import * as yup from "yup";
 
 //Usar o Fiel no lugar do input para que os métodos de handle sejam abstraídos
 // estamos criando o Meucampo usando o hook useFiel para customizar o campo
@@ -14,6 +15,7 @@ const MeuCampo = (props) => {
         {...field}
         {...props}
         className={meta.error && meta.touched ? "is-invalid-input" : ""}
+        autoComplete="off"
       />
       {meta.error && meta.touched ? (
         <div className="invalid-input">{meta.error}</div>
@@ -23,29 +25,29 @@ const MeuCampo = (props) => {
 };
 
 const AdicionaCliente = () => {
+  const esquemaValidacao = yup.object({
+    nome: yup
+      .string()
+      .required("O nome é obrigatório")
+      .min(8, "Nome muito pequeno")
+      .max(55, "Nome grande de mais"),
+    email: yup
+      .string()
+      .required("O e-mail é obrigatório")
+      .email("E-mail inválido"),
+    nascimento: yup
+      .date()
+      .required("O nascimento é obrigatório")
+      .max(new Date(), "Digite uma data de nascimento valida..."),
+  });
+
   return (
     <>
       <h1>Cadastro de Clientes</h1>
 
       <Formik
         initialValues={{ nome: "", email: "", nascimento: "" }}
-        validate={(values) => {
-          const errors = {};
-          if (!values.nome) {
-            errors.nome = "O nome é obrigatório";
-          }
-          if (!values.email) {
-            errors.email = "O email é obrigatório";
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = "Email invalido";
-          }
-          if (!values.nascimento) {
-            errors.nascimento = "O nascimento é obrigatório";
-          }
-          return errors;
-        }}
+        validationSchema={esquemaValidacao}
         onSubmit={(values) => {
           alert(JSON.stringify(values));
         }}
@@ -72,8 +74,9 @@ export default AdicionaCliente;
 
 /*
 
-COMO ERA O CODIGO ANTES DE USAR O USEFIELD DO FORMIK 
-PARA CRIAR NOSSO PROPRIO CAMPO
+###COMO ERA O CODIGO ANTES DE USAR O HOOK USEFIELD DO FORMIK 
+PARA CRIAR NOSSO PROPRIO CAMPO, E ANTES DE USAR O YUP PARA VALIDACAO 
+DO FORMULARIO###
 
 const AdicionaCliente = () => {
   return (
