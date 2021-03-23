@@ -9,6 +9,7 @@ const ListaFrutas = () => {
   return (
     <div>
       <h1>Lista de Frutas</h1>
+      <h4>Utilizando React e Redux</h4>
 
       <AdicionaFrutas />
 
